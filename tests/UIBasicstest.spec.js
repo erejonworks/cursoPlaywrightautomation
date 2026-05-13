@@ -11,6 +11,7 @@ test.only('Browser Context Playwright test', async ({ browser }) => {// Se tiene
     const username = page.locator('#username');
     const password = page.locator("[type='password']");
     const signIn = page.locator('#signInBtn');
+    const cardTitles = page.locator(".card-body a");
 
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     console.log(await page.title());
@@ -24,6 +25,13 @@ test.only('Browser Context Playwright test', async ({ browser }) => {// Se tiene
     await username.fill("rahulshettyacademy");
     await password.fill("Learning@830$3mK2");
     await signIn.click();
+    // Formas de manejar cuando hay multiples elementos con un mismo locator.
+    // console.log(await cardTitles.nth(0).textContent());
+    // console.log(await cardTitles.first().textContent());
+    const allTitles = await cardTitles.allTextContents();
+    console.log(allTitles);
+
+
 });
 
 test('Page Playwright test', async ({ page }) => {// Se tiene que poner entre brackets los fixtures de Playwright para que operen bien. Sin ellos funciona como string.
