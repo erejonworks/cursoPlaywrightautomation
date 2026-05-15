@@ -1,12 +1,17 @@
 const { test, expect } = require('@playwright/test');
 
+test.describe.configure({ mode: 'serial' }); //en Playwright le dice al runner: “Ejecuta los tests de este bloque uno tras otro, en orden, NO en paralelo.”
+
 const email = `name${Date.now()}@example.com`;
 const pwd = "Pwd123@456";
 const fName = "Rahul";
 const lName = "Sheety"
 const mobileNumber = '9996785412';
 
-test('Registration on the site', async ({ page }) => {
+test('Registration on the site', async ({ browser }) => {
+    // create context
+    const context = await browser.newContext();
+    const page = await context.newPage();
 
     // Sign up form
     const signUpLink = page.locator("a[class='text-reset']");
