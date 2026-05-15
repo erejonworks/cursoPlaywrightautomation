@@ -1,23 +1,40 @@
-const {test, expect} = require('@playwright/test');
+const { test, expect } = require('@playwright/test');
 
-test('Registration on the site', async({page}) => {
+const email = `name${Date.now()}@example.com`;
+const pwd = "Pwd123@456";
+const fName = "Rahul";
+const lName = "Sheety"
+const mobileNumber = '9996785412';
 
-     // Locators
+test('Registration on the site', async ({ page }) => {
+
+
+
+    // Locators
     // Login Form
     const signUpLink = page.locator("a[class='text-reset']");
-    const inputEmail = page.locator("#userEmail");
+    const loginEmailInput = page.locator("#userEmail");
     const inputPwd = page.locator("[type='password']");
-    const btnSignIn = page.locator("input[name='login']");
+    const signInbtn = page.locator("input[name='login']");
+
     // Sign up form
-    const fName = page.locator("#firstName");
-    const lName = page.locator("#lastName");
+    const fNameInput = page.locator("#firstName");
+    const lNameInput = page.locator("#lastName");
     const signUpEmail = page.locator("[type='email']");
-    const inputUserMobile = page.locator("#userMobile");
+    const userMobileInput = page.locator("#userMobile");
     const inputGender = page.locator('input[value="Male"]');
-    const inputpwd = page.locator("#userPassword");
-    const inputpwdconfirm = page.locator("#confirmPassword");
-    const = page.locator("");
-    const = page.locator("");
+    const inputPwdSignUp = page.locator("#userPassword");
+    const inputPwdSignUpConfirm = page.locator("#confirmPassword");
+    const occupationSelector = page.locator("select[formcontrolname='occupation']");
+    const over18checkbox = page.locator("input[type='checkbox']");
+    const registerBtn = page.locator('#login')
+
+    // Successful Registration
+    const successHeader = page.locator('h1[class="headcolor"]');
+    const successLoginBtn = page.locator('button[class="btn btn-primary"]');
+
+    // Into the site
+    const productCard = page.locator(".card");
 
     //Actions
     await page.goto("https://rahulshettyacademy.com/client/#/auth/login");
@@ -26,8 +43,24 @@ test('Registration on the site', async({page}) => {
 
     // Registration
     await signUpLink.click();
-    await
+    await fNameInput.fill(fName);
+    await lNameInput.fill(lName);
+    await signUpEmail.fill(email);
+    await userMobileInput.fill(mobileNumber);
+    await occupationSelector.selectOption({ index: 3 });
+    await inputGender.click();
+    await inputPwdSignUp.fill(pwd);
+    await inputPwdSignUpConfirm.fill(pwd);
+    await over18checkbox.click();
+    await registerBtn.click();
+    console.log(`Run > ${email}`);
+    await expect(successHeader).toHaveText("Account Created Successfully");
+    await successLoginBtn.click();
 
     //login
-    await inputEmail.fill("")
+    await loginEmailInput.fill(email)
+    await inputPwd.fill(pwd);
+    await signInbtn.click();
+
+    await expect(productCard.filter({ hasText: "Zara Coat" })).toBeVisible();
 });
