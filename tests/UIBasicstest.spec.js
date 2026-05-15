@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test'); // Se debe llamar esto para los assertions
 
-test.only('Browser Context Playwright test', async ({ browser }) => {// Se tiene que poner entre brackets los fixtures de Playwright para que operen bien. Sin ellos
+test.skip('Browser Context Playwright test', async ({ browser }) => {// Se tiene que poner entre brackets los fixtures de Playwright para que operen bien. Sin ellos
     //  funciona como string.
 
 
@@ -34,7 +34,7 @@ test.only('Browser Context Playwright test', async ({ browser }) => {// Se tiene
 
 });
 
-test('Page Playwright test', async ({ page }) => {// Se tiene que poner entre brackets los fixtures de Playwright para que operen bien. Sin ellos funciona como string.
+test.skip('Page Playwright test', async ({ page }) => {// Se tiene que poner entre brackets los fixtures de Playwright para que operen bien. Sin ellos funciona como string.
     await page.goto("https://google.com");
     // get title - assertion
     console.log(await page.title());

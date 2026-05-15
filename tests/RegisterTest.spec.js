@@ -8,16 +8,8 @@ const mobileNumber = '9996785412';
 
 test('Registration on the site', async ({ page }) => {
 
-
-
-    // Locators
-    // Login Form
-    const signUpLink = page.locator("a[class='text-reset']");
-    const loginEmailInput = page.locator("#userEmail");
-    const inputPwd = page.locator("[type='password']");
-    const signInbtn = page.locator("input[name='login']");
-
     // Sign up form
+    const signUpLink = page.locator("a[class='text-reset']");
     const fNameInput = page.locator("#firstName");
     const lNameInput = page.locator("#lastName");
     const signUpEmail = page.locator("[type='email']");
@@ -33,8 +25,7 @@ test('Registration on the site', async ({ page }) => {
     const successHeader = page.locator('h1[class="headcolor"]');
     const successLoginBtn = page.locator('button[class="btn btn-primary"]');
 
-    // Into the site
-    const productCard = page.locator(".card");
+
 
     //Actions
     await page.goto("https://rahulshettyacademy.com/client/#/auth/login");
@@ -56,8 +47,19 @@ test('Registration on the site', async ({ page }) => {
     console.log(`Run > ${email}`);
     await expect(successHeader).toHaveText("Account Created Successfully");
     await successLoginBtn.click();
+});
+
+test("Login Test", async ({ page }) => {
+    // Login Form
+    const loginEmailInput = page.locator("#userEmail");
+    const inputPwd = page.locator("[type='password']");
+    const signInbtn = page.locator("input[name='login']");
+    // Into the site
+    const productCard = page.locator(".card");
+
 
     //login
+    await page.goto("https://rahulshettyacademy.com/client/#/auth/login");
     await loginEmailInput.fill(email)
     await inputPwd.fill(pwd);
     await signInbtn.click();
