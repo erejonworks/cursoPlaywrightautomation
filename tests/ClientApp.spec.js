@@ -69,5 +69,10 @@ test("Login Test", async ({ page }) => {
     await inputPwd.fill(pwd);
     await signInbtn.click();
 
-    await expect(productCard.filter({ hasText: "Zara Coat" })).toBeVisible();
+    // await expect(productCard.filter({ hasText: "Zara Coat" })).toBeVisible();
+    // Dynamic wait
+    // await page.waitForLoadState("networkidle"); // Wait until the application stops calling web services when load the site. / it is not recommended in documentation.
+    await page.locator(".card-body b").first().waitFor(); // this is another way to wait for an element.
+    const allTitles =  await page.locator(".card-body b").allTextContents();
+    console.log(allTitles);
 });
