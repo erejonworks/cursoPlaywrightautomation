@@ -73,16 +73,20 @@ test("UI Controls", async ({ page }) => {
 
 test.only('Child windows handling', async ({ browser }) => {
     const context = await browser.newContext();
-    const page =  await context.newPage();
-    const userName =  page.locator('#username');
+    const page = await context.newPage();
+    const userName = page.locator('#username');
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     const documentLink = page.locator("[href*='documents-request']");
-     const  page2  = context.waitForEvent('page'); // Este  metodo se queda esperando como listener a que alguna nueva ventana se abra para tomar el contexto y
-    //  poder trabajar con el. De alguna manera es como el child window. Listn for any new page. Este metodo debe ejecutarse antes de que se ejecute el metodo 
-    // que abre la nueva pagina. 
-    await documentLink.click(); //  new page is opened
-  
-    
+
+
+    const [newPage] = Promise.all([
+        context.waitForEvent('page'), // Este  metodo se queda esperando como listener a que alguna nueva ventana se abra para tomar el contexto y
+        //  poder trabajar con el. De alguna manera es como el child window. Listn for any new page. Este metodo debe ejecutarse antes de que se ejecute el metodo 
+        // que abre la nueva pagina. 
+        await documentLink.click(), //  new page is opened
+    ]);
+
+
 
 
 
